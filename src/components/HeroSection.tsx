@@ -20,7 +20,7 @@ const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover"
         poster="/placeholder.svg"
       >
-        <source src="/videos/city-skyline.mp4" type="video/mp4" />
+        <source src="/videos/luxury-nightlife.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-background/70 backdrop-blur-[2px]" />
 

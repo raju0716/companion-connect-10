@@ -61,7 +61,7 @@ const userTypeConfig: Record<UserType, { label: string; description: string; all
   hookup: { label: "Hookup Women", description: "Create your own personal profile", allowMultiple: false },
 };
 
-const AddProfilePage = () => {
+const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState<UserType | null>(null);
   const [profiles, setProfiles] = useState<ProfileForm[]>([{ ...emptyProfile }]);
@@ -135,7 +135,7 @@ const AddProfilePage = () => {
   // Step 1: Choose user type
   if (!userType) {
     return (
-      <div className="min-h-screen bg-background pt-20 md:pt-24 pb-16">
+      <div className={embedded ? "" : "min-h-screen bg-background pt-20 md:pt-24 pb-16"}>
         <div className="container mx-auto px-4 max-w-3xl">
           <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
             Add Your <span className="text-gradient-rose">Profile</span>
@@ -176,7 +176,7 @@ const AddProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-20 md:pt-24 pb-16">
+    <div className={embedded ? "" : "min-h-screen bg-background pt-20 md:pt-24 pb-16"}>
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
           <div>

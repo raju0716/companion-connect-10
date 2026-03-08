@@ -12,6 +12,7 @@ import CityPage from "./pages/CityPage";
 import CitiesPage from "./pages/CitiesPage";
 import SafetyPage from "./pages/SafetyPage";
 import ContactPage from "./pages/ContactPage";
+import BookingPage from "./pages/BookingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/city/:cityId" element={<CityPage />} />
           <Route path="/safety" element={<SafetyPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/booking/:id" element={<BookingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

@@ -1,28 +1,30 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Shield, ChevronDown, MapPin, Heart, Plus } from "lucide-react";
+import { Menu, Shield, ChevronDown, MapPin, Heart, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { motion, AnimatePresence } from "framer-motion";
 import { cities, categories } from "@/data/mockData";
 
 const top20Cities = cities.slice(0, 20);
 
 const Navbar = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
   const [citiesOpen, setCitiesOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const citiesRef = useRef<HTMLDivElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
-  // Close menus on route change
   useEffect(() => {
     setCitiesOpen(false);
     setCategoriesOpen(false);
-    setMobileOpen(false);
+    setSheetOpen(false);
   }, [location.pathname]);
 
-  // Close on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (citiesRef.current && !citiesRef.current.contains(e.target as Node)) setCitiesOpen(false);
@@ -37,8 +39,8 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-glass border-b border-border">
-      <div className="container mx-auto px-4 flex items-center justify-between h-16">
-        <Link to="/" className="text-gradient-rose font-display text-2xl font-bold tracking-wide">
+      <div className="container mx-auto px-4 flex items-center justify-between h-14 md:h-16">
+        <Link to="/" className="text-gradient-rose font-display text-xl md:text-2xl font-bold tracking-wide">
           ÉLITE
         </Link>
 
@@ -114,11 +116,10 @@ const Navbar = () => {
                         </Link>
                       ))}
                     </div>
-                    <div className="border-t border-border mt-3 pt-3">
-                      <Link to="/cities" className="text-sm text-primary hover:underline font-medium">
-                        View all {cities.length} cities →
-                      </Link>
-                    </div>
+                    <Separator className="my-3" />
+                    <Link to="/cities" className="text-sm text-primary hover:underline font-medium">
+                      View all {cities.length} cities →
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -146,79 +147,116 @@ const Navbar = () => {
           </Button>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="lg:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-card border-b border-border overflow-hidden"
-          >
-            <div className="px-4 py-4 flex flex-col gap-1 max-h-[80vh] overflow-y-auto">
-              <Link to="/" onClick={() => setMobileOpen(false)} className="text-sm py-2 text-foreground">Home</Link>
-
-              {/* Categories accordion */}
-              <button
-                onClick={() => setCategoriesOpen(!categoriesOpen)}
-                className="flex items-center justify-between text-sm py-2 text-foreground"
-              >
-                Categories <ChevronDown className={`w-4 h-4 transition-transform ${categoriesOpen ? "rotate-180" : ""}`} />
-              </button>
-              {categoriesOpen && (
-                <div className="pl-4 pb-2 space-y-1">
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      to={`/category/${cat.id}`}
-                      onClick={() => setMobileOpen(false)}
-                      className="block text-sm py-1.5 text-muted-foreground hover:text-primary"
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* Cities accordion */}
-              <button
-                onClick={() => setCitiesOpen(!citiesOpen)}
-                className="flex items-center justify-between text-sm py-2 text-foreground"
-              >
-                Cities <ChevronDown className={`w-4 h-4 transition-transform ${citiesOpen ? "rotate-180" : ""}`} />
-              </button>
-              {citiesOpen && (
-                <div className="pl-4 pb-2 space-y-1">
-                  {top20Cities.map((city) => (
-                    <Link
-                      key={city.id}
-                      to={`/city/${city.id}`}
-                      onClick={() => setMobileOpen(false)}
-                      className="block text-sm py-1.5 text-muted-foreground hover:text-primary"
-                    >
-                      {city.name}
-                    </Link>
-                  ))}
-                  <Link to="/cities" onClick={() => setMobileOpen(false)} className="block text-sm py-1.5 text-primary font-medium">
-                    View all cities →
+        {/* Mobile: Sheet */}
+        <div className="flex lg:hidden items-center gap-2">
+          <Link to="/add-profile">
+            <Button size="sm" variant="ghost" className="text-primary px-2">
+              <Plus className="w-5 h-5" />
+            </Button>
+          </Link>
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="sm" className="text-foreground px-2">
+                <Menu className="w-5 h-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[340px] p-0">
+              <ScrollArea className="h-full">
+                <div className="p-6">
+                  <Link to="/" onClick={() => setSheetOpen(false)} className="text-gradient-rose font-display text-xl font-bold tracking-wide">
+                    ÉLITE
                   </Link>
-                </div>
-              )}
 
-              <Link to="/companions" onClick={() => setMobileOpen(false)} className="text-sm py-2 text-foreground">Companions</Link>
-              <Link to="/safety" onClick={() => setMobileOpen(false)} className="text-sm py-2 text-foreground">Safety</Link>
-              <Link to="/contact" onClick={() => setMobileOpen(false)} className="text-sm py-2 text-foreground">Contact</Link>
-              <Button size="sm" className="bg-primary text-primary-foreground mt-2">Book Now</Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  <Separator className="my-4" />
+
+                  <div className="flex flex-col gap-1">
+                    <Link to="/" onClick={() => setSheetOpen(false)} className="text-sm py-2.5 px-3 rounded-md text-foreground hover:bg-accent transition-colors">
+                      Home
+                    </Link>
+                    <Link to="/companions" onClick={() => setSheetOpen(false)} className="text-sm py-2.5 px-3 rounded-md text-foreground hover:bg-accent transition-colors">
+                      Companions
+                    </Link>
+
+                    <Accordion type="multiple" className="w-full">
+                      <AccordionItem value="categories" className="border-0">
+                        <AccordionTrigger className="text-sm py-2.5 px-3 rounded-md hover:bg-accent hover:no-underline font-normal">
+                          Categories
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-1">
+                          <div className="flex flex-col gap-0.5 pl-3">
+                            {categories.map((cat) => (
+                              <Link
+                                key={cat.id}
+                                to={`/category/${cat.id}`}
+                                onClick={() => setSheetOpen(false)}
+                                className="flex items-center justify-between text-sm py-2 px-3 rounded-md text-muted-foreground hover:bg-accent hover:text-primary transition-colors"
+                              >
+                                <span className="flex items-center gap-2">
+                                  <Heart className="w-3.5 h-3.5 text-primary" />
+                                  {cat.name}
+                                </span>
+                                <span className="text-xs text-muted-foreground">{cat.count}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="cities" className="border-0">
+                        <AccordionTrigger className="text-sm py-2.5 px-3 rounded-md hover:bg-accent hover:no-underline font-normal">
+                          Cities
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-1">
+                          <div className="flex flex-col gap-0.5 pl-3">
+                            {top20Cities.map((city) => (
+                              <Link
+                                key={city.id}
+                                to={`/city/${city.id}`}
+                                onClick={() => setSheetOpen(false)}
+                                className="flex items-center gap-2 text-sm py-2 px-3 rounded-md text-muted-foreground hover:bg-accent hover:text-primary transition-colors"
+                              >
+                                <MapPin className="w-3.5 h-3.5 text-primary" />
+                                {city.name}
+                              </Link>
+                            ))}
+                            <Link
+                              to="/cities"
+                              onClick={() => setSheetOpen(false)}
+                              className="text-sm py-2 px-3 text-primary font-medium"
+                            >
+                              View all {cities.length} cities →
+                            </Link>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+
+                    <Link to="/safety" onClick={() => setSheetOpen(false)} className="text-sm py-2.5 px-3 rounded-md text-foreground hover:bg-accent transition-colors">
+                      Safety & Guidelines
+                    </Link>
+                    <Link to="/contact" onClick={() => setSheetOpen(false)} className="text-sm py-2.5 px-3 rounded-md text-foreground hover:bg-accent transition-colors">
+                      Contact
+                    </Link>
+                  </div>
+
+                  <Separator className="my-4" />
+
+                  <div className="flex flex-col gap-2">
+                    <Link to="/add-profile" onClick={() => setSheetOpen(false)}>
+                      <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                        <Plus className="w-4 h-4 mr-2" /> Add Profile
+                      </Button>
+                    </Link>
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                      Book Now
+                    </Button>
+                  </div>
+                </div>
+              </ScrollArea>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
     </nav>
   );
 };

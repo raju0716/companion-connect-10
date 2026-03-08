@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -132,34 +135,39 @@ const AddProfilePage = () => {
   // Step 1: Choose user type
   if (!userType) {
     return (
-      <div className="min-h-screen bg-background pt-24 pb-16">
+      <div className="min-h-screen bg-background pt-20 md:pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
             Add Your <span className="text-gradient-rose">Profile</span>
           </h1>
-          <p className="text-muted-foreground mb-10">Choose your profile type to get started</p>
+          <p className="text-muted-foreground text-sm mb-6 md:mb-10">Choose your profile type to get started</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
             {(Object.entries(userTypeConfig) as [UserType, typeof userTypeConfig.escort][]).map(([key, val], i) => (
-              <motion.button
+              <motion.div
                 key={key}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                onClick={() => setUserType(key)}
-                className="p-6 rounded-lg bg-card border border-border text-left hover:border-primary/40 hover:shadow-rose transition-all group"
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <User className="w-5 h-5 text-primary" />
-                  <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {val.label}
-                  </h3>
-                </div>
-                <p className="text-muted-foreground text-sm">{val.description}</p>
-                {val.allowMultiple && (
-                  <Badge variant="secondary" className="mt-3 text-xs">Multiple profiles</Badge>
-                )}
-              </motion.button>
+                <Card
+                  className="cursor-pointer hover:border-primary/40 hover:shadow-rose transition-all"
+                  onClick={() => setUserType(key)}
+                >
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <User className="w-5 h-5 text-primary" />
+                      <h3 className="font-display text-base md:text-lg font-semibold text-foreground">
+                        {val.label}
+                      </h3>
+                    </div>
+                    <p className="text-muted-foreground text-xs md:text-sm">{val.description}</p>
+                    {val.allowMultiple && (
+                      <Badge variant="secondary" className="mt-3 text-xs">Multiple profiles</Badge>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -168,21 +176,21 @@ const AddProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-24 pb-16">
+    <div className="min-h-screen bg-background pt-20 md:pt-24 pb-16">
       <div className="container mx-auto px-4 max-w-5xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
           <div>
-            <button onClick={() => setUserType(null)} className="text-sm text-muted-foreground hover:text-primary mb-1">
+            <button onClick={() => setUserType(null)} className="text-xs text-muted-foreground hover:text-primary mb-1">
               ← Change type
             </button>
-            <h1 className="font-display text-3xl font-bold text-foreground">
+            <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
               {config!.label} <span className="text-gradient-rose">Profile</span>
             </h1>
-            <p className="text-muted-foreground text-sm">{config!.description}</p>
+            <p className="text-muted-foreground text-xs md:text-sm">{config!.description}</p>
           </div>
           {config!.allowMultiple && (
-            <Button onClick={addNewProfile} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Plus className="w-4 h-4 mr-1" /> Add Another Profile
+            <Button onClick={addNewProfile} size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground self-start sm:self-auto">
+              <Plus className="w-4 h-4 mr-1" /> Add Another
             </Button>
           )}
         </div>
@@ -220,9 +228,9 @@ const AddProfilePage = () => {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -10 }}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8"
           >
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 md:space-y-6">
               {/* Basic info */}
               <div className="bg-card border border-border rounded-lg p-5 space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
@@ -252,16 +260,19 @@ const AddProfilePage = () => {
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1 block">City *</label>
-                    <select
+                    <Select
                       value={activeProfile.city}
-                      onChange={(e) => updateProfile(activeIndex, { city: e.target.value })}
-                      className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                      onValueChange={(val) => updateProfile(activeIndex, { city: val })}
                     >
-                      <option value="">Select city</option>
-                      {cities.map((c) => (
-                        <option key={c.id} value={c.name}>{c.name}</option>
-                      ))}
-                    </select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select city" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {cities.map((c) => (
+                          <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1 block">Price Per Hour ($) *</label>

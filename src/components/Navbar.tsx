@@ -62,26 +62,39 @@ const Navbar = () => {
             <AnimatePresence>
               {categoriesOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute top-full left-0 mt-2 w-72 bg-card border border-border rounded-lg shadow-rose overflow-hidden"
+                  initial={{ opacity: 0, y: 10, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[340px] bg-card/95 backdrop-blur-xl border border-primary/15 rounded-xl shadow-rose glow-rose overflow-hidden"
                 >
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      to={`/category/${cat.id}`}
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-accent transition-colors border-b border-border last:border-0"
-                    >
-                      <Heart className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">{cat.name}</p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{cat.description}</p>
-                      </div>
-                      <span className="text-xs text-muted-foreground ml-auto flex-shrink-0">{cat.count}</span>
-                    </Link>
-                  ))}
+                  <div className="p-2">
+                    <div className="px-3 py-2 mb-1">
+                      <h3 className="text-xs font-semibold text-primary uppercase tracking-widest">Browse Categories</h3>
+                    </div>
+                    {categories.map((cat, i) => (
+                      <motion.div
+                        key={cat.id}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.04 }}
+                      >
+                        <Link
+                          to={`/category/${cat.id}`}
+                          className="group flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-primary/8 transition-all duration-200"
+                        >
+                          <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                            <Heart className="w-4 h-4 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{cat.name}</p>
+                            <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">{cat.description}</p>
+                          </div>
+                          <span className="text-[11px] font-medium text-primary/60 bg-primary/8 px-2 py-0.5 rounded-full mt-1 flex-shrink-0">{cat.count}</span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -98,31 +111,38 @@ const Navbar = () => {
             <AnimatePresence>
               {citiesOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute top-full -left-20 mt-2 bg-card border border-border rounded-lg shadow-rose overflow-hidden"
-                  style={{ width: "520px" }}
+                  initial={{ opacity: 0, y: 10, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="absolute top-full -left-40 mt-3 bg-card/95 backdrop-blur-xl border border-primary/15 rounded-xl shadow-rose glow-rose overflow-hidden"
+                  style={{ width: "560px" }}
                 >
                   <div className="p-4">
-                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Top 20 Cities</h3>
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-xs font-semibold text-primary uppercase tracking-widest">Top 20 Cities</h3>
+                      <Link to="/cities" className="text-xs text-primary hover:underline font-medium flex items-center gap-1">
+                        View all {cities.length} <span>→</span>
+                      </Link>
+                    </div>
                     <div className="grid grid-cols-4 gap-1">
-                      {top20Cities.map((city) => (
-                        <Link
+                      {top20Cities.map((city, i) => (
+                        <motion.div
                           key={city.id}
-                          to={`/city/${city.id}`}
-                          className="flex items-center gap-1.5 px-2.5 py-2 rounded-md text-sm text-foreground hover:bg-accent hover:text-primary transition-colors"
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: i * 0.02 }}
                         >
-                          <MapPin className="w-3 h-3 text-primary flex-shrink-0" />
-                          <span className="truncate">{city.name}</span>
-                        </Link>
+                          <Link
+                            to={`/city/${city.id}`}
+                            className="group flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-sm text-foreground hover:bg-primary/8 hover:text-primary transition-all duration-200"
+                          >
+                            <MapPin className="w-3 h-3 text-primary/60 group-hover:text-primary transition-colors flex-shrink-0" />
+                            <span className="truncate">{city.name}</span>
+                          </Link>
+                        </motion.div>
                       ))}
                     </div>
-                    <Separator className="my-3" />
-                    <Link to="/cities" className="text-sm text-primary hover:underline font-medium">
-                      View all {cities.length} cities →
-                    </Link>
                   </div>
                 </motion.div>
               )}

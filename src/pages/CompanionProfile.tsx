@@ -47,6 +47,38 @@ const CompanionProfile = () => {
     );
   }
 
+  const mockReviews = generateMockReviews(companion.name);
+  const [reviews, setReviews] = useState<Review[]>(mockReviews);
+  const [newReview, setNewReview] = useState({ name: "", rating: 5, comment: "" });
+  const [showAllReviews, setShowAllReviews] = useState(false);
+
+  const avgRating = (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1);
+  const ratingBreakdown = [5, 4, 3, 2, 1].map((star) => ({
+    star,
+    count: reviews.filter((r) => r.rating === star).length,
+    percent: Math.round((reviews.filter((r) => r.rating === star).length / reviews.length) * 100),
+  }));
+
+  const handleSubmitReview = () => {
+    if (!newReview.name.trim() || !newReview.comment.trim()) {
+      toast.error("Please fill in your name and review");
+      return;
+    }
+    const review: Review = {
+      id: reviews.length + 1,
+      name: newReview.name,
+      rating: newReview.rating,
+      comment: newReview.comment,
+      date: "Just now",
+      helpful: 0,
+    };
+    setReviews([review, ...reviews]);
+    setNewReview({ name: "", rating: 5, comment: "" });
+    toast.success("Review submitted successfully!");
+  };
+
+  const displayedReviews = showAllReviews ? reviews : reviews.slice(0, 3);
+
   const packages = [
     { name: "1 Hour", price: companion.pricePerHour, desc: "Quick meeting" },
     { name: "3 Hours", price: companion.pricePerHour * 2.5, desc: "Dinner & evening" },
@@ -142,6 +174,117 @@ const CompanionProfile = () => {
               </Link>
             </div>
           </motion.div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="mt-8 md:mt-12">
+          <Separator className="mb-8" />
+          
+          <h2 className="font-display text-xl md:text-2xl font-bold text-foreground mb-6">
+            Reviews & Ratings
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            {/* Rating Summary */}
+            <Card className="border-border">
+              <CardContent className="p-5 text-center">
+                <p className="text-4xl font-bold text-foreground">{avgRating}</p>
+                <div className="flex justify-center gap-0.5 my-2">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star key={s} className={`w-4 h-4 ${s <= Math.round(Number(avgRating)) ? "text-primary fill-primary" : "text-muted-foreground"}`} />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">{reviews.length} reviews</p>
+
+                <div className="mt-4 space-y-2">
+                  {ratingBreakdown.map((r) => (
+                    <div key={r.star} className="flex items-center gap-2 text-sm">
+                      <span className="w-3 text-muted-foreground">{r.star}</span>
+                      <Star className="w-3 h-3 text-primary" />
+                      <Progress value={r.percent} className="h-2 flex-1" />
+                      <span className="w-6 text-xs text-muted-foreground text-right">{r.count}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Write Review */}
+            <Card className="lg:col-span-2 border-border">
+              <CardContent className="p-5 space-y-4">
+                <h3 className="font-display font-semibold text-foreground">Write a Review</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <Input
+                    placeholder="Your name"
+                    value={newReview.name}
+                    onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                  />
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">Rating:</span>
+                    <div className="flex gap-0.5">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <button key={s} onClick={() => setNewReview({ ...newReview, rating: s })}>
+                          <Star className={`w-5 h-5 transition-colors ${s <= newReview.rating ? "text-primary fill-primary" : "text-muted-foreground hover:text-primary/50"}`} />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <Textarea
+                  placeholder="Share your experience..."
+                  value={newReview.comment}
+                  onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                  rows={3}
+                  className="resize-none"
+                />
+                <Button onClick={handleSubmitReview} className="bg-primary text-primary-foreground">
+                  Submit Review
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Review List */}
+          <div className="space-y-4">
+            {displayedReviews.map((review) => (
+              <Card key={review.id} className="border-border">
+                <CardContent className="p-4 sm:p-5">
+                  <div className="flex items-start gap-3">
+                    <Avatar className="w-9 h-9 shrink-0">
+                      <AvatarFallback className="bg-primary/10 text-primary text-sm">
+                        {review.name[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                        <div>
+                          <span className="font-medium text-sm text-foreground">{review.name}</span>
+                          <div className="flex gap-0.5 mt-0.5">
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <Star key={s} className={`w-3 h-3 ${s <= review.rating ? "text-primary fill-primary" : "text-muted-foreground"}`} />
+                            ))}
+                          </div>
+                        </div>
+                        <span className="text-xs text-muted-foreground">{review.date}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{review.comment}</p>
+                      <button className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground hover:text-primary transition-colors">
+                        <ThumbsUp className="w-3 h-3" /> Helpful ({review.helpful})
+                      </button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {reviews.length > 3 && (
+            <div className="text-center mt-4">
+              <Button variant="outline" onClick={() => setShowAllReviews(!showAllReviews)}>
+                {showAllReviews ? "Show Less" : `View All ${reviews.length} Reviews`}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

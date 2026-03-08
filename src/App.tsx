@@ -19,6 +19,12 @@ import AddProfilePage from "./pages/AddProfilePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminProfiles from "./pages/admin/AdminProfiles";
+import AdminBookings from "./pages/admin/AdminBookings";
+import AdminPlaceholder from "./pages/admin/AdminPlaceholder";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,24 +36,49 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Navbar />
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/companions" element={<CompanionListing />} />
-            <Route path="/companion/:id" element={<CompanionProfile />} />
-            <Route path="/cities" element={<CitiesPage />} />
-            <Route path="/city/:cityId" element={<CityPage />} />
-            <Route path="/safety" element={<SafetyPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/booking/:id" element={<BookingPage />} />
-            <Route path="/category/:categoryId" element={<CategoryPage />} />
-            <Route path="/add-profile" element={<AddProfilePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/profile" element={<UserProfilePage />} />
-            <Route path="*" element={<NotFound />} />
+            {/* Admin routes — no Navbar/Footer */}
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="profiles" element={<AdminProfiles />} />
+              <Route path="bookings" element={<AdminBookings />} />
+              <Route path="cities" element={<AdminPlaceholder title="Cities" />} />
+              <Route path="categories" element={<AdminPlaceholder title="Categories" />} />
+              <Route path="reports" element={<AdminPlaceholder title="Reports" />} />
+              <Route path="messages" element={<AdminPlaceholder title="Messages" />} />
+              <Route path="subscriptions" element={<AdminPlaceholder title="Subscriptions" />} />
+              <Route path="moderation" element={<AdminPlaceholder title="Moderation" />} />
+              <Route path="settings" element={<AdminPlaceholder title="Settings" />} />
+            </Route>
+
+            {/* Public routes */}
+            <Route
+              path="*"
+              element={
+                <>
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/companions" element={<CompanionListing />} />
+                    <Route path="/companion/:id" element={<CompanionProfile />} />
+                    <Route path="/cities" element={<CitiesPage />} />
+                    <Route path="/city/:cityId" element={<CityPage />} />
+                    <Route path="/safety" element={<SafetyPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/booking/:id" element={<BookingPage />} />
+                    <Route path="/category/:categoryId" element={<CategoryPage />} />
+                    <Route path="/add-profile" element={<AddProfilePage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/profile" element={<UserProfilePage />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                  <Footer />
+                </>
+              }
+            />
           </Routes>
-          <Footer />
         </BrowserRouter>
       </AuthProvider>
     </TooltipProvider>

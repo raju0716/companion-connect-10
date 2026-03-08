@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const LoginPage = () => {
   const { toast } = useToast();
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [emailForm, setEmailForm] = useState({ email: "", password: "" });
   const [phoneForm, setPhoneForm] = useState({ phone: "", otp: "" });
@@ -18,7 +21,9 @@ const LoginPage = () => {
 
   const handleEmailLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    login({ name: emailForm.email.split("@")[0], email: emailForm.email, phone: "", joinedDate: "March 2026" });
     toast({ title: "Login Successful", description: "Welcome back!" });
+    navigate("/profile");
   };
 
   const handleSendOtp = () => {
@@ -29,11 +34,15 @@ const LoginPage = () => {
 
   const handlePhoneLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    login({ name: "User", email: "", phone: phoneForm.phone, joinedDate: "March 2026" });
     toast({ title: "Login Successful", description: "Welcome back!" });
+    navigate("/profile");
   };
 
   const handleGoogleLogin = () => {
-    toast({ title: "Google Sign-In", description: "Redirecting to Google..." });
+    login({ name: "Google User", email: "user@gmail.com", phone: "", joinedDate: "March 2026" });
+    toast({ title: "Google Sign-In", description: "Welcome!" });
+    navigate("/profile");
   };
 
   return (

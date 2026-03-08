@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, Shield, ChevronDown, MapPin, Heart, Plus, LogIn } from "lucide-react";
+import { Menu, Shield, ChevronDown, MapPin, Heart, Plus, LogIn, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "framer-motion";
 import { cities, categories } from "@/data/mockData";
+import { useAuth } from "@/contexts/AuthContext";
 
 const top20Cities = cities.slice(0, 20);
 
@@ -18,6 +20,7 @@ const Navbar = () => {
   const citiesRef = useRef<HTMLDivElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const { isLoggedIn, user } = useAuth();
 
   useEffect(() => {
     setCitiesOpen(false);
@@ -137,16 +140,24 @@ const Navbar = () => {
               <Shield className="w-4 h-4 mr-1" /> 18+
             </Button>
           </Link>
-          <Link to="/login">
-            <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
-              <LogIn className="w-4 h-4 mr-1" /> Login
-            </Button>
-          </Link>
-          <Link to="/add-profile">
-            <Button size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Plus className="w-4 h-4 mr-1" /> Add Profile
-            </Button>
-          </Link>
+          {isLoggedIn ? (
+            <Link to="/profile">
+              <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary gap-2">
+                <Avatar className="w-6 h-6">
+                  <AvatarFallback className="bg-primary/10 text-primary text-xs">
+                    {(user?.name || "U")[0].toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                My Profile
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
+                <LogIn className="w-4 h-4 mr-1" /> Login
+              </Button>
+            </Link>
+          )}
           <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
             Book Now
           </Button>
@@ -154,11 +165,17 @@ const Navbar = () => {
 
         {/* Mobile: Sheet */}
         <div className="flex lg:hidden items-center gap-2">
-          <Link to="/add-profile">
-            <Button size="sm" variant="ghost" className="text-primary px-2">
-              <Plus className="w-5 h-5" />
-            </Button>
-          </Link>
+          {isLoggedIn ? (
+            <Link to="/profile">
+              <Button size="sm" variant="ghost" className="text-primary px-2">
+                <Avatar className="w-6 h-6">
+                  <AvatarFallback className="bg-primary/10 text-primary text-xs">
+                    {(user?.name || "U")[0].toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </Link>
+          ) : null}
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="sm" className="text-foreground px-2">
@@ -249,22 +266,28 @@ const Navbar = () => {
                   <Separator className="my-4" />
 
                   <div className="flex flex-col gap-2">
-                    <Link to="/login" onClick={() => setSheetOpen(false)}>
-                      <Button variant="outline" className="w-full">
-                        <LogIn className="w-4 h-4 mr-2" /> Login
-                      </Button>
-                    </Link>
-                    <Link to="/register" onClick={() => setSheetOpen(false)}>
-                      <Button variant="ghost" className="w-full text-muted-foreground">
-                        Create Account
-                      </Button>
-                    </Link>
-                    <Separator className="my-1" />
-                    <Link to="/add-profile" onClick={() => setSheetOpen(false)}>
-                      <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                        <Plus className="w-4 h-4 mr-2" /> Add Profile
-                      </Button>
-                    </Link>
+                    {isLoggedIn ? (
+                      <>
+                        <Link to="/profile" onClick={() => setSheetOpen(false)}>
+                          <Button variant="outline" className="w-full">
+                            <UserCircle className="w-4 h-4 mr-2" /> My Profile
+                          </Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/login" onClick={() => setSheetOpen(false)}>
+                          <Button variant="outline" className="w-full">
+                            <LogIn className="w-4 h-4 mr-2" /> Login
+                          </Button>
+                        </Link>
+                        <Link to="/register" onClick={() => setSheetOpen(false)}>
+                          <Button variant="ghost" className="w-full text-muted-foreground">
+                            Create Account
+                          </Button>
+                        </Link>
+                      </>
+                    )}
                     <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                       Book Now
                     </Button>

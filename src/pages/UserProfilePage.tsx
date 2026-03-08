@@ -13,6 +13,7 @@ import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import AddProfilePage from "./AddProfilePage";
+import { cn } from "@/lib/utils";
 
 // Mock saved profiles
 const mockMyProfiles = [

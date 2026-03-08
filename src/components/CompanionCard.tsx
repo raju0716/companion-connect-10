@@ -3,7 +3,6 @@ import { Star, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import ReportButton from "@/components/ReportButton";
 import type { Companion } from "@/data/mockData";
 
 interface Props {
@@ -53,9 +52,6 @@ const CompanionCard = ({ companion, index = 0 }: Props) => (
           <p className="text-primary font-semibold text-xs md:text-sm mt-1 md:mt-2">
             From ${companion.pricePerHour}/hr
           </p>
-        </div>
-        <div className="absolute top-2 right-2 z-10" onClick={(e) => e.preventDefault()}>
-          <ReportButton targetType="listing" targetId={companion.id} targetName={companion.name} />
         </div>
       </Card>
     </Link>

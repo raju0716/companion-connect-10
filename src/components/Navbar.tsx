@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Shield, ChevronDown, MapPin, Heart } from "lucide-react";
+import { Menu, X, Shield, ChevronDown, MapPin, Heart, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { cities, categories } from "@/data/mockData";
@@ -134,6 +134,11 @@ const Navbar = () => {
           <Link to="/safety">
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
               <Shield className="w-4 h-4 mr-1" /> 18+
+            </Button>
+          </Link>
+          <Link to="/add-profile">
+            <Button size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              <Plus className="w-4 h-4 mr-1" /> Add Profile
             </Button>
           </Link>
           <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">

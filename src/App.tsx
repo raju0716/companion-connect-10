@@ -14,6 +14,7 @@ import SafetyPage from "./pages/SafetyPage";
 import ContactPage from "./pages/ContactPage";
 import BookingPage from "./pages/BookingPage";
 import CategoryPage from "./pages/CategoryPage";
+import AddProfilePage from "./pages/AddProfilePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/booking/:id" element={<BookingPage />} />
           <Route path="/category/:categoryId" element={<CategoryPage />} />
+          <Route path="/add-profile" element={<AddProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

@@ -1,11 +1,34 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, MapPin, Clock, MessageCircle, ArrowLeft, Check } from "lucide-react";
+import { Star, MapPin, Clock, MessageCircle, ArrowLeft, Check, User, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Progress } from "@/components/ui/progress";
 import { companions } from "@/data/mockData";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
+
+interface Review {
+  id: number;
+  name: string;
+  rating: number;
+  comment: string;
+  date: string;
+  helpful: number;
+}
+
+const generateMockReviews = (companionName: string): Review[] => [
+  { id: 1, name: "Rahul M.", rating: 5, comment: `${companionName} is absolutely wonderful. Very professional and great company for the evening. Highly recommended!`, date: "2 days ago", helpful: 12 },
+  { id: 2, name: "Amit S.", rating: 4, comment: "Had a great time. Very punctual and well-mannered. Will definitely book again.", date: "1 week ago", helpful: 8 },
+  { id: 3, name: "Vikram P.", rating: 5, comment: "Best experience ever! Very elegant and charming personality. Made the dinner date truly special.", date: "2 weeks ago", helpful: 15 },
+  { id: 4, name: "Suresh K.", rating: 3, comment: "Good overall experience. Communication could be a bit better but service was fine.", date: "3 weeks ago", helpful: 3 },
+  { id: 5, name: "Deepak R.", rating: 5, comment: "Absolutely stunning and very professional. Perfect companion for the corporate event.", date: "1 month ago", helpful: 20 },
+];
 
 const CompanionProfile = () => {
   const { id } = useParams();

@@ -29,6 +29,29 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const PublicLayout = () => (
+  <>
+    <Navbar />
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/companions" element={<CompanionListing />} />
+      <Route path="/companion/:id" element={<CompanionProfile />} />
+      <Route path="/cities" element={<CitiesPage />} />
+      <Route path="/city/:cityId" element={<CityPage />} />
+      <Route path="/safety" element={<SafetyPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/booking/:id" element={<BookingPage />} />
+      <Route path="/category/:categoryId" element={<CategoryPage />} />
+      <Route path="/add-profile" element={<AddProfilePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/profile" element={<UserProfilePage />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+    <Footer />
+  </>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -37,7 +60,6 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            {/* Admin routes — no Navbar/Footer */}
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="users" element={<AdminUsers />} />
@@ -51,33 +73,7 @@ const App = () => (
               <Route path="moderation" element={<AdminPlaceholder title="Moderation" />} />
               <Route path="settings" element={<AdminPlaceholder title="Settings" />} />
             </Route>
-
-            {/* Public routes */}
-            <Route
-              path="*"
-              element={
-                <>
-                  <Navbar />
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/companions" element={<CompanionListing />} />
-                    <Route path="/companion/:id" element={<CompanionProfile />} />
-                    <Route path="/cities" element={<CitiesPage />} />
-                    <Route path="/city/:cityId" element={<CityPage />} />
-                    <Route path="/safety" element={<SafetyPage />} />
-                    <Route path="/contact" element={<ContactPage />} />
-                    <Route path="/booking/:id" element={<BookingPage />} />
-                    <Route path="/category/:categoryId" element={<CategoryPage />} />
-                    <Route path="/add-profile" element={<AddProfilePage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/profile" element={<UserProfilePage />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                  <Footer />
-                </>
-              }
-            />
+            <Route path="/*" element={<PublicLayout />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

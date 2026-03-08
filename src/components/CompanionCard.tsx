@@ -16,7 +16,7 @@ const CompanionCard = ({ companion, index = 0 }: Props) => (
     transition={{ duration: 0.4, delay: index * 0.1 }}
   >
     <Link to={`/companion/${companion.id}`} className="group block">
-      <div className="relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-300 hover:border-primary/40 hover:shadow-gold">
+      <div className="relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-300 hover:border-primary/40 hover:shadow-rose">
         <div className="aspect-[3/4] overflow-hidden">
           <img
             src={companion.image}
@@ -24,7 +24,7 @@ const CompanionCard = ({ companion, index = 0 }: Props) => (
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent" />
         </div>
 
         {companion.featured && (

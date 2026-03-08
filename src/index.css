@@ -6,47 +6,46 @@
 
 @layer base {
   :root {
-    --background: 240 10% 6%;
-    --foreground: 40 20% 92%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 12%;
 
-    --card: 240 8% 10%;
-    --card-foreground: 40 20% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 12%;
 
-    --popover: 240 8% 10%;
-    --popover-foreground: 40 20% 92%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 12%;
 
-    --primary: 40 80% 55%;
-    --primary-foreground: 240 10% 6%;
+    --primary: 0 52% 61%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 6% 16%;
-    --secondary-foreground: 40 20% 85%;
+    --secondary: 0 20% 95%;
+    --secondary-foreground: 0 0% 20%;
 
-    --muted: 240 6% 14%;
-    --muted-foreground: 240 6% 55%;
+    --muted: 0 10% 93%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 40 60% 45%;
-    --accent-foreground: 40 20% 92%;
+    --accent: 0 40% 92%;
+    --accent-foreground: 0 52% 50%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 18%;
-    --input: 240 6% 18%;
-    --ring: 40 80% 55%;
+    --border: 0 10% 90%;
+    --input: 0 10% 90%;
+    --ring: 0 52% 61%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 240 8% 8%;
-    --sidebar-foreground: 40 20% 85%;
-    --sidebar-primary: 40 80% 55%;
-    --sidebar-primary-foreground: 240 10% 6%;
-    --sidebar-accent: 240 6% 14%;
-    --sidebar-accent-foreground: 40 20% 85%;
-    --sidebar-border: 240 6% 18%;
-    --sidebar-ring: 40 80% 55%;
+    --sidebar-background: 0 0% 97%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 0 52% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 20% 95%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 0 10% 90%;
+    --sidebar-ring: 0 52% 61%;
 
-    --gold-glow: 40 90% 60%;
-    --surface-glass: 240 8% 12%;
+    --primary-soft: 0 52% 95%;
   }
 }
 
@@ -65,25 +64,21 @@
 }
 
 @layer utilities {
-  .text-gradient-gold {
+  .text-gradient-rose {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(40, 80%, 55%), hsl(40, 90%, 70%), hsl(40, 80%, 55%));
+    background-image: linear-gradient(135deg, hsl(0, 52%, 55%), hsl(0, 60%, 70%), hsl(350, 50%, 55%));
   }
 
   .bg-glass {
-    background: hsla(240, 8%, 12%, 0.8);
+    background: hsla(0, 0%, 100%, 0.85);
     backdrop-filter: blur(20px);
   }
 
-  .border-gold {
-    border-color: hsl(40, 80%, 55%);
+  .shadow-rose {
+    box-shadow: 0 4px 20px -6px hsla(0, 52%, 61%, 0.25);
   }
 
-  .shadow-gold {
-    box-shadow: 0 0 30px -10px hsla(40, 80%, 55%, 0.3);
-  }
-
-  .glow-gold {
-    box-shadow: 0 0 60px -20px hsla(40, 80%, 55%, 0.4);
+  .glow-rose {
+    box-shadow: 0 0 40px -15px hsla(0, 52%, 61%, 0.3);
   }
 }

@@ -17,8 +17,7 @@ const HeroSection = () => {
         alt="Luxury ambiance"
         className="absolute inset-0 w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-background/70" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+      <div className="absolute inset-0 bg-background/80" />
 
       <div className="relative z-10 container mx-auto px-4 text-center">
         <motion.div
@@ -27,7 +26,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-            <span className="text-gradient-gold">Exclusive</span>
+            <span className="text-gradient-rose">Exclusive</span>
             <br />
             <span className="text-foreground">Companionship</span>
           </h1>
@@ -42,12 +41,12 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="max-w-lg mx-auto"
         >
-          <div className="bg-glass rounded-lg border border-border p-2 flex gap-2">
+          <div className="bg-card rounded-lg border border-border p-2 flex gap-2 shadow-rose">
             <div className="relative flex-1">
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="w-full bg-secondary text-secondary-foreground rounded-md px-4 py-3 text-sm appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full bg-muted text-foreground rounded-md px-4 py-3 text-sm appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 <option value="">Select City</option>
                 {cities.map((c) => (

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, Shield, ChevronDown, MapPin, Heart, Plus } from "lucide-react";
+import { Menu, Shield, ChevronDown, MapPin, Heart, Plus, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -137,6 +137,11 @@ const Navbar = () => {
               <Shield className="w-4 h-4 mr-1" /> 18+
             </Button>
           </Link>
+          <Link to="/login">
+            <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
+              <LogIn className="w-4 h-4 mr-1" /> Login
+            </Button>
+          </Link>
           <Link to="/add-profile">
             <Button size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
               <Plus className="w-4 h-4 mr-1" /> Add Profile
@@ -244,6 +249,17 @@ const Navbar = () => {
                   <Separator className="my-4" />
 
                   <div className="flex flex-col gap-2">
+                    <Link to="/login" onClick={() => setSheetOpen(false)}>
+                      <Button variant="outline" className="w-full">
+                        <LogIn className="w-4 h-4 mr-2" /> Login
+                      </Button>
+                    </Link>
+                    <Link to="/register" onClick={() => setSheetOpen(false)}>
+                      <Button variant="ghost" className="w-full text-muted-foreground">
+                        Create Account
+                      </Button>
+                    </Link>
+                    <Separator className="my-1" />
                     <Link to="/add-profile" onClick={() => setSheetOpen(false)}>
                       <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                         <Plus className="w-4 h-4 mr-2" /> Add Profile

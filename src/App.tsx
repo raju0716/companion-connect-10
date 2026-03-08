@@ -15,6 +15,8 @@ import ContactPage from "./pages/ContactPage";
 import BookingPage from "./pages/BookingPage";
 import CategoryPage from "./pages/CategoryPage";
 import AddProfilePage from "./pages/AddProfilePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +39,8 @@ const App = () => (
           <Route path="/booking/:id" element={<BookingPage />} />
           <Route path="/category/:categoryId" element={<CategoryPage />} />
           <Route path="/add-profile" element={<AddProfilePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

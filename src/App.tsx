@@ -12,6 +12,7 @@ import CityPage from "./pages/CityPage";
 import CitiesPage from "./pages/CitiesPage";
 import SafetyPage from "./pages/SafetyPage";
 import ContactPage from "./pages/ContactPage";
+import BookingPage from "./pages/BookingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

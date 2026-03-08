@@ -60,6 +60,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <AgeConfirmationDialog />
           <Routes>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />

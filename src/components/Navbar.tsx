@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Shield, ChevronDown, MapPin, Heart } from "lucide-react";
+import { Menu, X, Shield, ChevronDown, MapPin, Heart, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { cities, categories } from "@/data/mockData";

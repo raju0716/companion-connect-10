@@ -33,6 +33,11 @@ const generateMockReviews = (companionName: string): Review[] => [
 const CompanionProfile = () => {
   const { id } = useParams();
   const companion = companions.find((c) => c.id === id);
+  const [reviews, setReviews] = useState<Review[]>(() => 
+    companion ? generateMockReviews(companion.name) : []
+  );
+  const [newReview, setNewReview] = useState({ name: "", rating: 5, comment: "" });
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   if (!companion) {
     return (
@@ -46,11 +51,6 @@ const CompanionProfile = () => {
       </div>
     );
   }
-
-  const mockReviews = generateMockReviews(companion.name);
-  const [reviews, setReviews] = useState<Review[]>(mockReviews);
-  const [newReview, setNewReview] = useState({ name: "", rating: 5, comment: "" });
-  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const avgRating = (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1);
   const ratingBreakdown = [5, 4, 3, 2, 1].map((star) => ({

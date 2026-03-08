@@ -20,6 +20,7 @@ const Navbar = () => {
   const citiesRef = useRef<HTMLDivElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const { isLoggedIn, user } = useAuth();
 
   useEffect(() => {
     setCitiesOpen(false);

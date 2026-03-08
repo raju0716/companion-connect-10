@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Settings, Plus, Eye, Edit2, Trash2, MapPin, LogOut, Heart, Clock } from "lucide-react";
+import { User, Settings, Plus, Eye, Edit2, Trash2, MapPin, LogOut, Heart, Clock, CreditCard, Crown, Check, Zap } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import AddProfilePage from "./AddProfilePage";
@@ -121,6 +122,9 @@ const UserProfilePage = () => {
             </TabsTrigger>
             <TabsTrigger value="add-profile" className="text-xs sm:text-sm">
               <Plus className="w-3.5 h-3.5 mr-1.5" /> Add Profile
+            </TabsTrigger>
+            <TabsTrigger value="subscription" className="text-xs sm:text-sm">
+              <Crown className="w-3.5 h-3.5 mr-1.5" /> Subscription
             </TabsTrigger>
             <TabsTrigger value="settings" className="text-xs sm:text-sm">
               <Settings className="w-3.5 h-3.5 mr-1.5" /> Settings

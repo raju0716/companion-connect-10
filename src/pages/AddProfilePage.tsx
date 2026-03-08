@@ -230,9 +230,9 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
             exit={{ opacity: 0, x: -10 }}
             className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8"
           >
-            <div className="lg:col-span-2 space-y-4 md:space-y-6">
+            <div className="lg:col-span-2 space-y-6">
               {/* Basic info */}
-              <div className="bg-card border border-border rounded-lg p-5 space-y-4">
+              <div className="space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
                   <User className="w-5 h-5 text-primary" /> Basic Information
                 </h2>
@@ -243,7 +243,6 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                       value={activeProfile.name}
                       onChange={(e) => updateProfile(activeIndex, { name: e.target.value })}
                       placeholder="Display name"
-                      className="bg-background border-border"
                     />
                   </div>
                   <div>
@@ -255,7 +254,6 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                       value={activeProfile.age}
                       onChange={(e) => updateProfile(activeIndex, { age: e.target.value })}
                       placeholder="Must be 18+"
-                      className="bg-background border-border"
                     />
                   </div>
                   <div>
@@ -282,14 +280,15 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                       value={activeProfile.pricePerHour}
                       onChange={(e) => updateProfile(activeIndex, { pricePerHour: e.target.value })}
                       placeholder="e.g. 300"
-                      className="bg-background border-border"
                     />
                   </div>
                 </div>
               </div>
 
+              <Separator />
+
               {/* Contact */}
-              <div className="bg-card border border-border rounded-lg p-5 space-y-4">
+              <div className="space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-primary" /> Contact Details
                 </h2>
@@ -300,7 +299,6 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                       value={activeProfile.phone}
                       onChange={(e) => updateProfile(activeIndex, { phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="bg-background border-border"
                     />
                   </div>
                   <div>
@@ -309,7 +307,6 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                       value={activeProfile.whatsapp}
                       onChange={(e) => updateProfile(activeIndex, { whatsapp: e.target.value })}
                       placeholder="WhatsApp number"
-                      className="bg-background border-border"
                     />
                   </div>
                   <div className="sm:col-span-2">
@@ -319,14 +316,15 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                       value={activeProfile.email}
                       onChange={(e) => updateProfile(activeIndex, { email: e.target.value })}
                       placeholder="your@email.com"
-                      className="bg-background border-border"
                     />
                   </div>
                 </div>
               </div>
 
+              <Separator />
+
               {/* Description */}
-              <div className="bg-card border border-border rounded-lg p-5 space-y-4">
+              <div className="space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
                   <FileText className="w-5 h-5 text-primary" /> About
                 </h2>
@@ -337,13 +335,15 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                     onChange={(e) => updateProfile(activeIndex, { description: e.target.value })}
                     placeholder="Write an attractive description about yourself or the companion..."
                     rows={4}
-                    className="bg-background border-border resize-none"
+                    className="resize-none"
                   />
                 </div>
               </div>
 
+              <Separator />
+
               {/* Services */}
-              <div className="bg-card border border-border rounded-lg p-5 space-y-4">
+              <div className="space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
                   <DollarSign className="w-5 h-5 text-primary" /> Services *
                 </h2>
@@ -365,8 +365,10 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                 </div>
               </div>
 
+              <Separator />
+
               {/* Availability */}
-              <div className="bg-card border border-border rounded-lg p-5 space-y-4">
+              <div className="space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
                   <Clock className="w-5 h-5 text-primary" /> Availability
                 </h2>
@@ -388,8 +390,10 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
                 </div>
               </div>
 
+              <Separator />
+
               {/* Photos */}
-              <div className="bg-card border border-border rounded-lg p-5 space-y-4">
+              <div className="space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
                   <Upload className="w-5 h-5 text-primary" /> Photos
                 </h2>

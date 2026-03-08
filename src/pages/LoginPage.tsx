@@ -9,12 +9,6 @@ import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Mail, Phone, Eye, EyeOff } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 const LoginPage = () => {
   const { toast } = useToast();

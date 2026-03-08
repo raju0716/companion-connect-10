@@ -135,34 +135,39 @@ const AddProfilePage = () => {
   // Step 1: Choose user type
   if (!userType) {
     return (
-      <div className="min-h-screen bg-background pt-24 pb-16">
+      <div className="min-h-screen bg-background pt-20 md:pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
             Add Your <span className="text-gradient-rose">Profile</span>
           </h1>
-          <p className="text-muted-foreground mb-10">Choose your profile type to get started</p>
+          <p className="text-muted-foreground text-sm mb-6 md:mb-10">Choose your profile type to get started</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
             {(Object.entries(userTypeConfig) as [UserType, typeof userTypeConfig.escort][]).map(([key, val], i) => (
-              <motion.button
+              <motion.div
                 key={key}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                onClick={() => setUserType(key)}
-                className="p-6 rounded-lg bg-card border border-border text-left hover:border-primary/40 hover:shadow-rose transition-all group"
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <User className="w-5 h-5 text-primary" />
-                  <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {val.label}
-                  </h3>
-                </div>
-                <p className="text-muted-foreground text-sm">{val.description}</p>
-                {val.allowMultiple && (
-                  <Badge variant="secondary" className="mt-3 text-xs">Multiple profiles</Badge>
-                )}
-              </motion.button>
+                <Card
+                  className="cursor-pointer hover:border-primary/40 hover:shadow-rose transition-all"
+                  onClick={() => setUserType(key)}
+                >
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <User className="w-5 h-5 text-primary" />
+                      <h3 className="font-display text-base md:text-lg font-semibold text-foreground">
+                        {val.label}
+                      </h3>
+                    </div>
+                    <p className="text-muted-foreground text-xs md:text-sm">{val.description}</p>
+                    {val.allowMultiple && (
+                      <Badge variant="secondary" className="mt-3 text-xs">Multiple profiles</Badge>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -171,7 +176,7 @@ const AddProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-24 pb-16">
+    <div className="min-h-screen bg-background pt-20 md:pt-24 pb-16">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
           <div>

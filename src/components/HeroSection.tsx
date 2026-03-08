@@ -5,7 +5,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { cities } from "@/data/mockData";
-import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -13,12 +12,17 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden">
-      <img
-        src={heroBg}
-        alt="Luxury ambiance"
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
         className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-background/80" />
+        poster="/placeholder.svg"
+      >
+        <source src="/videos/city-skyline.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-background/70 backdrop-blur-[2px]" />
 
       <div className="relative z-10 container mx-auto px-4 text-center pt-14">
         <motion.div

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Star, MapPin, Clock, MessageCircle, ArrowLeft, Check, User, ThumbsUp } from "lucide-react";
+import ReportButton from "@/components/ReportButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -110,11 +111,14 @@ const CompanionProfile = () => {
           {/* Info */}
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4 md:space-y-6">
             <div>
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-                  {companion.name}
-                </h1>
-                {companion.available && <Badge className="bg-primary text-primary-foreground border-0">Available</Badge>}
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+                    {companion.name}
+                  </h1>
+                  {companion.available && <Badge className="bg-primary text-primary-foreground border-0">Available</Badge>}
+                </div>
+                <ReportButton targetType="profile" targetId={companion.id} targetName={companion.name} />
               </div>
               <div className="flex flex-wrap items-center gap-2 md:gap-4 text-muted-foreground text-xs md:text-sm">
                 <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {companion.city}</span>

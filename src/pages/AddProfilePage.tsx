@@ -178,19 +178,19 @@ const AddProfilePage = () => {
   return (
     <div className="min-h-screen bg-background pt-20 md:pt-24 pb-16">
       <div className="container mx-auto px-4 max-w-5xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
           <div>
-            <button onClick={() => setUserType(null)} className="text-sm text-muted-foreground hover:text-primary mb-1">
+            <button onClick={() => setUserType(null)} className="text-xs text-muted-foreground hover:text-primary mb-1">
               ← Change type
             </button>
-            <h1 className="font-display text-3xl font-bold text-foreground">
+            <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
               {config!.label} <span className="text-gradient-rose">Profile</span>
             </h1>
-            <p className="text-muted-foreground text-sm">{config!.description}</p>
+            <p className="text-muted-foreground text-xs md:text-sm">{config!.description}</p>
           </div>
           {config!.allowMultiple && (
-            <Button onClick={addNewProfile} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Plus className="w-4 h-4 mr-1" /> Add Another Profile
+            <Button onClick={addNewProfile} size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground self-start sm:self-auto">
+              <Plus className="w-4 h-4 mr-1" /> Add Another
             </Button>
           )}
         </div>

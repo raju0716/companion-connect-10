@@ -228,9 +228,9 @@ const AddProfilePage = () => {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -10 }}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8"
           >
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 md:space-y-6">
               {/* Basic info */}
               <div className="bg-card border border-border rounded-lg p-5 space-y-4">
                 <h2 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">

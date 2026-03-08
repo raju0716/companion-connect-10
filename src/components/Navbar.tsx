@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, Shield, ChevronDown, MapPin, Heart, Plus, LogIn } from "lucide-react";
+import { Menu, Shield, ChevronDown, MapPin, Heart, Plus, LogIn, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "framer-motion";
 import { cities, categories } from "@/data/mockData";
+import { useAuth } from "@/contexts/AuthContext";
 
 const top20Cities = cities.slice(0, 20);
 

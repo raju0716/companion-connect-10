@@ -34,11 +34,15 @@ const LoginPage = () => {
 
   const handlePhoneLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    login({ name: "User", email: "", phone: phoneForm.phone, joinedDate: "March 2026" });
     toast({ title: "Login Successful", description: "Welcome back!" });
+    navigate("/profile");
   };
 
   const handleGoogleLogin = () => {
-    toast({ title: "Google Sign-In", description: "Redirecting to Google..." });
+    login({ name: "Google User", email: "user@gmail.com", phone: "", joinedDate: "March 2026" });
+    toast({ title: "Google Sign-In", description: "Welcome!" });
+    navigate("/profile");
   };
 
   return (

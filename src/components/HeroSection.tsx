@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import heroBg from "@/assets/hero-bg.jpg";
 import { Search, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -12,17 +13,12 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
+      <img
+        src={heroBg}
+        alt="Luxury evening ambiance"
         className="absolute inset-0 w-full h-full object-cover"
-        poster="/placeholder.svg"
-      >
-        <source src="/videos/luxury-nightlife.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-background/70 backdrop-blur-[2px]" />
+      />
+      <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px]" />
 
       <div className="relative z-10 container mx-auto px-4 text-center pt-14">
         <motion.div

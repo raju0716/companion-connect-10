@@ -257,7 +257,137 @@ const UserProfilePage = () => {
             <AddProfilePage embedded />
           </TabsContent>
 
-          {/* Settings */}
+          {/* Subscription */}
+          <TabsContent value="subscription" className="mt-6">
+            {(() => {
+              const currentPlan = {
+                name: "Gold",
+                price: 999,
+                startDate: new Date("2026-02-15"),
+                endDate: new Date("2026-04-15"),
+                features: ["Up to 5 profiles", "Priority listing", "Verified badge", "24/7 support", "Analytics dashboard"],
+              };
+              const now = new Date();
+              const totalDays = Math.ceil((currentPlan.endDate.getTime() - currentPlan.startDate.getTime()) / (1000 * 60 * 60 * 24));
+              const daysLeft = Math.max(0, Math.ceil((currentPlan.endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
+              const daysUsed = totalDays - daysLeft;
+              const progressPercent = Math.round((daysUsed / totalDays) * 100);
+
+              const plans = [
+                { name: "Free", price: 0, period: "Forever", features: ["1 profile", "Basic listing", "Community support"], highlight: false },
+                { name: "Silver", price: 499, period: "/month", features: ["Up to 3 profiles", "Standard listing", "Email support", "Basic analytics"], highlight: false },
+                { name: "Gold", price: 999, period: "/month", features: ["Up to 5 profiles", "Priority listing", "Verified badge", "24/7 support", "Analytics dashboard"], highlight: true },
+                { name: "Diamond", price: 1999, period: "/month", features: ["Unlimited profiles", "Top listing", "Verified badge", "Dedicated manager", "Full analytics", "Custom branding"], highlight: false },
+              ];
+
+              return (
+                <div className="space-y-6">
+                  {/* Current Plan */}
+                  <Card className="border-primary/30 bg-primary/5">
+                    <CardContent className="p-5 sm:p-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Crown className="w-5 h-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2">
+                              {currentPlan.name} Plan
+                              <Badge className="bg-primary text-primary-foreground text-xs">Active</Badge>
+                            </h3>
+                            <p className="text-sm text-muted-foreground">₹{currentPlan.price}/month</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-2xl font-bold text-primary">{daysLeft}</p>
+                          <p className="text-xs text-muted-foreground">days remaining</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">
+                            {currentPlan.startDate.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                          </span>
+                          <span className="text-muted-foreground">
+                            {currentPlan.endDate.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                          </span>
+                        </div>
+                        <Progress value={progressPercent} className="h-2" />
+                        <p className="text-xs text-muted-foreground text-center">
+                          {daysUsed} of {totalDays} days used ({progressPercent}%)
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {currentPlan.features.map((f) => (
+                          <Badge key={f} variant="secondary" className="text-xs">
+                            <Check className="w-3 h-3 mr-1" /> {f}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* All Plans */}
+                  <div>
+                    <h2 className="font-display text-lg font-semibold text-foreground mb-4">All Plans</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                      {plans.map((plan) => {
+                        const isCurrent = plan.name === currentPlan.name;
+                        return (
+                          <Card
+                            key={plan.name}
+                            className={cn(
+                              "border-border relative overflow-hidden",
+                              plan.highlight && "border-primary shadow-rose"
+                            )}
+                          >
+                            {plan.highlight && (
+                              <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
+                            )}
+                            <CardContent className="p-4 sm:p-5 space-y-3">
+                              <div className="flex items-center gap-2">
+                                {plan.name === "Diamond" && <Zap className="w-4 h-4 text-primary" />}
+                                {plan.name === "Gold" && <Crown className="w-4 h-4 text-primary" />}
+                                {plan.name === "Silver" && <CreditCard className="w-4 h-4 text-muted-foreground" />}
+                                {plan.name === "Free" && <User className="w-4 h-4 text-muted-foreground" />}
+                                <h3 className="font-display font-semibold text-foreground">{plan.name}</h3>
+                              </div>
+                              <div>
+                                <span className="text-2xl font-bold text-foreground">
+                                  {plan.price === 0 ? "Free" : `₹${plan.price}`}
+                                </span>
+                                {plan.price > 0 && (
+                                  <span className="text-sm text-muted-foreground">{plan.period}</span>
+                                )}
+                              </div>
+                              <ul className="space-y-1.5">
+                                {plan.features.map((f) => (
+                                  <li key={f} className="flex items-center gap-2 text-xs text-muted-foreground">
+                                    <Check className="w-3 h-3 text-primary shrink-0" /> {f}
+                                  </li>
+                                ))}
+                              </ul>
+                              <Button
+                                variant={isCurrent ? "secondary" : plan.highlight ? "default" : "outline"}
+                                size="sm"
+                                className="w-full"
+                                disabled={isCurrent}
+                              >
+                                {isCurrent ? "Current Plan" : plan.price > currentPlan.price ? "Upgrade" : plan.price === 0 ? "Downgrade" : "Switch"}
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+          </TabsContent>
+
           <TabsContent value="settings" className="mt-6">
             <Card className="border-border max-w-2xl">
               <CardHeader>

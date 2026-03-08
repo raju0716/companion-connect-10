@@ -22,12 +22,27 @@ export interface Companion {
   tags: string[];
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
+  count: number;
+}
+
 export interface City {
   id: string;
   name: string;
   count: number;
   description: string;
 }
+
+export const categories: Category[] = [
+  { id: "escort", name: "Escort", description: "Premium escort companions for events and private meetings", count: 120 },
+  { id: "hotel", name: "Hotel Companion", description: "In-hotel companionship for travelers and guests", count: 85 },
+  { id: "independent", name: "Independent Girl", description: "Verified independent companions with flexible availability", count: 95 },
+  { id: "divorce", name: "Divorce Women", description: "Mature, experienced women seeking meaningful connections", count: 60 },
+  { id: "hookup", name: "Hookup Women", description: "Casual encounters with fun, adventurous women", count: 70 },
+];
 
 export const cities: City[] = [
   // International

@@ -26,6 +26,7 @@ import AdminProfiles from "./pages/admin/AdminProfiles";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminPlaceholder from "./pages/admin/AdminPlaceholder";
 import NotFound from "./pages/NotFound";
+import AgeConfirmationDialog from "./components/AgeConfirmationDialog";
 
 const queryClient = new QueryClient();
 

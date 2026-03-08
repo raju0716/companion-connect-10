@@ -136,6 +136,11 @@ const Navbar = () => {
               <Shield className="w-4 h-4 mr-1" /> 18+
             </Button>
           </Link>
+          <Link to="/add-profile">
+            <Button size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              <Plus className="w-4 h-4 mr-1" /> Add Profile
+            </Button>
+          </Link>
           <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
             Book Now
           </Button>

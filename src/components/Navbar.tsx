@@ -140,16 +140,24 @@ const Navbar = () => {
               <Shield className="w-4 h-4 mr-1" /> 18+
             </Button>
           </Link>
-          <Link to="/login">
-            <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
-              <LogIn className="w-4 h-4 mr-1" /> Login
-            </Button>
-          </Link>
-          <Link to="/add-profile">
-            <Button size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Plus className="w-4 h-4 mr-1" /> Add Profile
-            </Button>
-          </Link>
+          {isLoggedIn ? (
+            <Link to="/profile">
+              <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary gap-2">
+                <Avatar className="w-6 h-6">
+                  <AvatarFallback className="bg-primary/10 text-primary text-xs">
+                    {(user?.name || "U")[0].toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                My Profile
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
+                <LogIn className="w-4 h-4 mr-1" /> Login
+              </Button>
+            </Link>
+          )}
           <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
             Book Now
           </Button>

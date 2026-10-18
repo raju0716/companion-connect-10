@@ -1,0 +1,15 @@
+{
+  "customizations": [
+    { "token": "rose palette CSS variables (--primary 0 52% 61% etc.)", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--primary-soft / bg-primary-soft", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "font-display (Playfair Display)", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "font-body (Inter)", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "Google Fonts import", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "animate-fade-up keyframes", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "container (centered, 2rem, 1400px)", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "text-gradient-rose", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "bg-glass", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "shadow-rose", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "glow-rose", "source": "src/index.css", "reappliedIn": "src/styles.css" }
+  ]
+}

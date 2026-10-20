@@ -1,0 +1,4 @@
+- [ ] Restore the TanStack Start root shell and generated route tree.
+- [ ] Replace React Router imports, route links, and params with TanStack Router.
+- [ ] Convert the app's Radix-backed UI wrappers to Base UI and remove Radix dependencies.
+- [ ] Complete route metadata and verify routing, build, tests, and the live preview.

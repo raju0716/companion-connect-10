@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Shield, Clock, Eye, MapPin, MessageCircle, Heart, Sparkles, PartyPopper, Users, Star, ArrowRight, Flame, Moon, Crown, Zap, Wine, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

@@ -3,7 +3,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 import { Search, ChevronDown, Sparkles, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@/lib/router-compat";
 import { useState } from "react";
 import { cities } from "@/data/mockData";
 import { Badge } from "@/components/ui/badge";

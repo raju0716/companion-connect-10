@@ -1,6 +1,6 @@
 import { LayoutDashboard, Users, UserCheck, MapPin, Tag, CreditCard, Settings, Shield, BarChart3, MessageSquare, ChevronLeft } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "@/lib/router-compat";
 import {
   Sidebar,
   SidebarContent,

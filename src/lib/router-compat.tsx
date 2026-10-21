@@ -3,7 +3,7 @@
  * legacy page components use, implemented on top of the TanStack Router.
  * Keep it thin: new code should import from "@tanstack/react-router" directly.
  */
-import { useCallback, type AnchorHTMLAttributes, type MouseEvent, type ReactNode } from "react";
+import { useCallback, type AnchorHTMLAttributes, type MouseEvent } from "react";
 import { useRouter, useRouterState, useParams as useTanStackParams } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 

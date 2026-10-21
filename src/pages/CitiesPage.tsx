@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { cities } from "@/data/mockData";

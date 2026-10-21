@@ -83,6 +83,7 @@ export function NavLink({
   className,
   activeClassName,
   pendingClassName: _pendingClassName,
+  children,
   ...rest
 }: NavLinkProps) {
   const { pathname } = useLocation();
@@ -93,7 +94,7 @@ export function NavLink({
 
   return (
     <Link to={to} className={cn(resolved, isActive && activeClassName)} {...rest}>
-      {rest.children as ReactNode}
+      {children}
     </Link>
   );
 }

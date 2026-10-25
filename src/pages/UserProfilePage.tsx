@@ -74,7 +74,7 @@ const UserProfilePage = () => {
           <Avatar className="w-16 h-16 border-2 border-primary">
             <AvatarImage src={user?.avatar} />
             <AvatarFallback className="bg-primary/10 text-primary text-xl font-display">
-              {(user?.name || "U")[0].toUpperCase()}
+              {(user?.name || "U").charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">

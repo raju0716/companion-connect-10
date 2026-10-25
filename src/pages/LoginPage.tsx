@@ -21,7 +21,7 @@ const LoginPage = () => {
 
   const handleEmailLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    login({ name: emailForm.email.split("@")[0], email: emailForm.email, phone: "", joinedDate: "March 2026" });
+    login({ name: emailForm.email.split("@")[0] ?? emailForm.email, email: emailForm.email, phone: "", joinedDate: "March 2026" });
     toast({ title: "Login Successful", description: "Welcome back!" });
     navigate("/profile");
   };

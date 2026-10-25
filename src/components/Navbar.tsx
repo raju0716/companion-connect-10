@@ -165,7 +165,7 @@ const Navbar = () => {
               <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary gap-2">
                 <Avatar className="w-6 h-6">
                   <AvatarFallback className="bg-primary/10 text-primary text-xs">
-                    {(user?.name || "U")[0].toUpperCase()}
+                    {(user?.name || "U").charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 My Profile
@@ -190,7 +190,7 @@ const Navbar = () => {
               <Button size="sm" variant="ghost" className="text-primary px-2">
                 <Avatar className="w-6 h-6">
                   <AvatarFallback className="bg-primary/10 text-primary text-xs">
-                    {(user?.name || "U")[0].toUpperCase()}
+                    {(user?.name || "U").charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               </Button>

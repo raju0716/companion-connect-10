@@ -15,7 +15,7 @@ const Footer = () => (
         <div>
           <h4 className="text-foreground font-semibold mb-2 md:mb-3 text-xs md:text-sm">Quick Links</h4>
           <div className="flex flex-col gap-1.5">
-            {[["Home", "/"], ["Companions", "/companions"], ["Cities", "/cities"], ["Contact", "/contact"]].map(([label, to]) => (
+            {[["Home", "/"], ["Companions", "/companions"], ["Cities", "/cities"], ["Contact", "/contact"]] as const}.map(([label, to]) => (
               <Link key={to} to={to} className="text-muted-foreground text-xs md:text-sm hover:text-primary transition-colors">{label}</Link>
             ))}
           </div>
@@ -23,7 +23,7 @@ const Footer = () => (
         <div>
           <h4 className="text-foreground font-semibold mb-2 md:mb-3 text-xs md:text-sm">Legal</h4>
           <div className="flex flex-col gap-1.5">
-            {[["Privacy Policy", "/privacy"], ["Terms", "/terms"], ["Safety", "/safety"]].map(([label, to]) => (
+            {[["Privacy Policy", "/privacy"], ["Terms", "/terms"], ["Safety", "/safety"]] as const}.map(([label, to]) => (
               <Link key={to} to={to} className="text-muted-foreground text-xs md:text-sm hover:text-primary transition-colors">{label}</Link>
             ))}
           </div>

@@ -69,29 +69,34 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
   const [submitting, setSubmitting] = useState(false);
 
   const config = userType ? userTypeConfig[userType] : null;
-  const activeProfile = profiles[activeIndex];
+  const activeProfile = profiles[activeIndex]!;
 
   const updateProfile = (index: number, updates: Partial<ProfileForm>) => {
     setProfiles((prev) => prev.map((p, i) => (i === index ? { ...p, ...updates } : p)));
   };
 
   const toggleArrayItem = (index: number, field: "services" | "availability", item: string) => {
-    const current = profiles[index][field];
+    const target = profiles[index];
+    if (!target) return;
+    const current = target[field];
     const updated = current.includes(item) ? current.filter((x) => x !== item) : [...current, item];
     updateProfile(index, { [field]: updated });
   };
 
   const handlePhotoUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = profiles[index];
     const files = Array.from(e.target.files || []);
-    if (files.length === 0) return;
-    const newPhotos = [...profiles[index].photos, ...files];
-    const newUrls = [...profiles[index].photoPreviewUrls, ...files.map((f) => URL.createObjectURL(f))];
+    if (!target || files.length === 0) return;
+    const newPhotos = [...target.photos, ...files];
+    const newUrls = [...target.photoPreviewUrls, ...files.map((f) => URL.createObjectURL(f))];
     updateProfile(index, { photos: newPhotos, photoPreviewUrls: newUrls });
   };
 
   const removePhoto = (profileIndex: number, photoIndex: number) => {
     const p = profiles[profileIndex];
-    URL.revokeObjectURL(p.photoPreviewUrls[photoIndex]);
+    if (!p) return;
+    const url = p.photoPreviewUrls[photoIndex];
+    if (url) URL.revokeObjectURL(url);
     updateProfile(profileIndex, {
       photos: p.photos.filter((_, i) => i !== photoIndex),
       photoPreviewUrls: p.photoPreviewUrls.filter((_, i) => i !== photoIndex),
@@ -105,7 +110,7 @@ const AddProfilePage = ({ embedded = false }: { embedded?: boolean }) => {
 
   const removeProfile = (index: number) => {
     if (profiles.length <= 1) return;
-    profiles[index].photoPreviewUrls.forEach(URL.revokeObjectURL);
+    profiles[index]?.photoPreviewUrls.forEach(URL.revokeObjectURL);
     setProfiles((prev) => prev.filter((_, i) => i !== index));
     setActiveIndex(Math.max(0, activeIndex - 1));
   };

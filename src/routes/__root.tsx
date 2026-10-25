@@ -8,6 +8,7 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
+import appCss from "@/styles.css?url";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -25,7 +26,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { charSet: "UTF-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
     ],
-    links: [{ rel: "icon", href: "/favicon.ico" }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico" },
+    ],
   }),
   component: RootComponent,
   notFoundComponent: () => <NotFoundPage />,

@@ -3,7 +3,7 @@
  * legacy page components use, implemented on top of the TanStack Router.
  * Keep it thin: new code should import from "@tanstack/react-router" directly.
  */
-import { useCallback, type AnchorHTMLAttributes, type MouseEvent } from "react";
+import { useCallback, type AnchorHTMLAttributes, type MouseEvent, type Ref } from "react";
 import { useRouter, useRouterState, useParams as useTanStackParams } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 
@@ -43,9 +43,10 @@ export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   to: string;
   replace?: boolean;
   state?: unknown;
+  ref?: Ref<HTMLAnchorElement>;
 }
 
-export function Link({ to, replace, onClick, children, ...rest }: LinkProps) {
+export function Link({ to, replace, onClick, children, ref, ...rest }: LinkProps) {
   const router = useRouter();
   const isExternal =
     !to || to.startsWith("#") || /^[a-z][a-z0-9+.-]*:/i.test(to) || to.startsWith("//");
@@ -64,7 +65,7 @@ export function Link({ to, replace, onClick, children, ...rest }: LinkProps) {
   };
 
   return (
-    <a href={to} onClick={handleClick} {...rest}>
+    <a ref={ref} href={to} onClick={handleClick} {...rest}>
       {children}
     </a>
   );
